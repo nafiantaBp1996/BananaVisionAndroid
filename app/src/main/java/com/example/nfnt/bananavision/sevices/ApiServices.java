@@ -1,0 +1,21 @@
+package com.example.nfnt.bananavision.sevices;
+
+import com.example.nfnt.bananavision.models.ApiData;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+
+/**
+ * Created by NFNT on 3/7/2019.
+ */
+
+public interface ApiServices {
+    @GET("dataset")
+    Call<ApiData> getData();
+
+    @POST("dataset")
+    Call<ApiData> postData(@Body ApiData apiData);
+
+}
