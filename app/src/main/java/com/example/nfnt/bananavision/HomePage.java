@@ -1,6 +1,5 @@
 package com.example.nfnt.bananavision;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,19 +10,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.Button;
 
-import com.example.nfnt.bananavision.generator.ServiceGenerator;
-import com.example.nfnt.bananavision.models.ApiData;
 import com.example.nfnt.bananavision.sevices.ApiServices;
 
 import java.io.ByteArrayOutputStream;
@@ -34,13 +28,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
-public class Main2Activity extends AppCompatActivity {
-
+public class HomePage extends AppCompatActivity {
     private static final int CAMERA_PERMISSION=1;
     private static final int READ_PERMISSION=1;
     private File file;
@@ -48,26 +36,21 @@ public class Main2Activity extends AppCompatActivity {
     private Uri file_uri;
     private String image_name,encoded_string,pathImage;
     Bitmap bitmap;
-    ImageView imgView_data;
-    //TextView txtData;
-
+    //ImageView imgView_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        imgView_data = (ImageView) findViewById(R.id.imageView_data);
-        //txtData = (TextView) findViewById(R.id.txt_data);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.gradient);
+        Button cameraBtn = (Button) findViewById(R.id.btnCamerass);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 getPermis();
             }
         });
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -87,8 +70,8 @@ public class Main2Activity extends AppCompatActivity {
         return file;
     }
     private void getPermis(){
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_PERMISSION);
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_PERMISSION);
             Log.d("permision", "Fail");
         }
         else{
@@ -104,7 +87,6 @@ public class Main2Activity extends AppCompatActivity {
                 }
                 if (imgFile!=null ){
                     file_uri = FileProvider.getUriForFile(this,"com.example.nfnt.bananavision.provider",imgFile);
-                    //txtData.setText(imgFile.getPath());
                     i.putExtra(MediaStore.EXTRA_OUTPUT,file_uri);
                     startActivityForResult(i,CAMERA_PERMISSION);
                 }
@@ -114,18 +96,18 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-       switch (requestCode)
-       {
-           case CAMERA_PERMISSION:
-               if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
-               {
-                   getPermis();
-               }
-               else
-                   {
-                       Log.e("status", "Fail" );
-                   }
-       }
+        switch (requestCode)
+        {
+            case CAMERA_PERMISSION:
+                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                {
+                    getPermis();
+                }
+                else
+                {
+                    Log.e("status", "Fail" );
+                }
+        }
     }
 
     @Override
@@ -133,8 +115,14 @@ public class Main2Activity extends AppCompatActivity {
         if (requestCode == CAMERA_PERMISSION && resultCode == RESULT_OK){
             //bitmap = (Bitmap) data.getExtras().get("data");
             bitmap = BitmapFactory.decodeFile("/storage/emulated/0"+file_uri.getPath());
-            imgView_data.setImageBitmap(bitmap);
-            new Encode_image().execute();
+            //imgView_data.setImageBitmap(bitmap);
+            new HomePage.Encode_image().execute();
+            Intent results = new Intent(this,MainActivity.class);
+            Bundle b = new Bundle();
+            b.putString("img","/storage/emulated/0" + file_uri.getPath());
+            b.putString("imgName",image_name);
+            results.putExtras(b);
+            startActivity(results);
             //txtData.setText(encoded_string);
         }
     }
@@ -142,31 +130,32 @@ public class Main2Activity extends AppCompatActivity {
     private class Encode_image extends AsyncTask<Void,Void,Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            bitmap = BitmapFactory.decodeFile("/storage/emulated/0"+file_uri.getPath());
-            ByteArrayOutputStream stream= new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,90,stream);
+            bitmap = BitmapFactory.decodeFile("/storage/emulated/0" + file_uri.getPath());
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
             byte[] array = stream.toByteArray();
-            encoded_string = Base64.encodeToString(array,0);
+            encoded_string = Base64.encodeToString(array, 0);
 
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            ApiData data = new ApiData(image_name,encoded_string);
-            apiServices = ServiceGenerator.createService(ApiServices.class);
-            Call<ApiData> call = apiServices.postData(data);
-            call.enqueue(new Callback<ApiData>() {
-                @Override
-                public void onResponse(Call<ApiData> call, Response<ApiData> response) {
-                    Toast.makeText(getApplicationContext(),"Sukses",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<ApiData> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(),"Fail",Toast.LENGTH_SHORT).show();
-                }
-            });
+//            ApiData data = new ApiData(image_name, encoded_string);
+//            apiServices = ServiceGenerator.createService(ApiServices.class);
+//            Call<ApiData> call = apiServices.postData(data);
+//            call.enqueue(new Callback<ApiData>() {
+//                @Override
+//                public void onResponse(Call<ApiData> call, Response<ApiData> response) {
+//                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ApiData> call, Throwable t) {
+//                    Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
     }
 }
+

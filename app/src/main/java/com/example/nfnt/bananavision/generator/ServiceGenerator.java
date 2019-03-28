@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static String BASE_URL = "http://192.168.0.101/bananaApi/index.php/";
+    private static String BASE_URL = "http://192.168.43.10/bananaApi/index.php/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

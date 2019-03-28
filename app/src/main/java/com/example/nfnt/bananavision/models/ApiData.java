@@ -5,9 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ApiData {
 
-    @SerializedName("image")
+    @SerializedName("status")
     @Expose
-    private String image;
+    private String status;
+    @SerializedName("filename")
+    @Expose
+    private String filename;
     @SerializedName("name")
     @Expose
     private String name;
@@ -22,26 +25,19 @@ public class ApiData {
     }
 
     public String getStatus() {
-        return image;
+        return status;
     }
 
     public void setStatus(String status) {
-        this.image = status;
+        this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getString_encoded() {
-        return string_encoded;
-    }
-
-    public void setString_encoded(String string_encoded) {
-        this.string_encoded = string_encoded;
-    }
 }

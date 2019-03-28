@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nfnt.bananavision.MainActivity">
+    android:background="@drawable/gradient_bck">
+    <ImageView
 
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="next"/>
-
+        android:layout_width="300dp"
+        android:layout_height="224dp"
+        android:background="#fff"
+        android:id="@+id/imageViewHasil"
+        android:layout_marginTop="140dp"
+        android:rotation="90"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
     <TextView
-        android:id="@+id/textView_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="BananaVision"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"
+        android:shadowColor="#ffffff"
+        android:id="@+id/textViewHasil"
+        android:layout_below="@+id/imageViewHasil"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
+    <Button
+        android:id="@+id/btnEkstraksi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Cek Hasil"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        android:background="@drawable/custom_button"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_below="@+id/textViewHasil"
+        android:layout_centerHorizontal="true" />
 
-</android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

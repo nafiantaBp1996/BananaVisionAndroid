@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bck">
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo1"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BananaVision"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"
+        android:shadowColor="#ffffff"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView" />
+    <Button
+        android:id="@+id/btnCamerass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Gunakan Kamera"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        android:background="@drawable/custom_button"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="63dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        />
+    <Button
+        android:id="@+id/btnFolder"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Cari di Galeri"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        android:background="@drawable/custom_button"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="70dp"
+        android:layout_below="@+id/btnCamerass"
+        android:layout_marginStart="70dp" />
+
+</RelativeLayout>
