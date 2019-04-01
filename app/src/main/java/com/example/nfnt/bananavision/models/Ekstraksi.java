@@ -16,18 +16,21 @@ public class Ekstraksi {
     @SerializedName("I")
     @Expose
     private Double i;
-    @SerializedName("R")
+    @SerializedName("contras")
     @Expose
-    private Double r;
-    @SerializedName("G")
+    private Double contras;
+    @SerializedName("energy")
     @Expose
-    private Double g;
-    @SerializedName("B")
+    private Double energy;
+    @SerializedName("homogenity")
     @Expose
-    private Double b;
-    @SerializedName("pixel")
+    private Double homogenity;
+    @SerializedName("entropy")
     @Expose
-    private Integer pixel;
+    private Double entropy;
+    @SerializedName("corelation")
+    @Expose
+    private Double corelation;
 
     public Double getH() {
         return h;
@@ -53,38 +56,44 @@ public class Ekstraksi {
         this.i = i;
     }
 
-    public Double getR() {
-        return r;
+    public Double getContras() {
+        return contras;
     }
 
-    public void setR(Double r) {
-        this.r = r;
+    public void setContras(Double contras) {
+        this.contras = contras;
     }
 
-    public Double getG() {
-        return g;
+    public Double getEnergy() {
+        return energy;
     }
 
-    public void setG(Double g) {
-        this.g = g;
+    public void setEnergy(Double energy) {
+        this.energy = energy;
     }
 
-    public Double getB() {
-        return b;
+    public Double getHomogenity() {
+        return homogenity;
     }
 
-    public void setB(Double b) {
-        this.b = b;
+    public void setHomogenity(Double homogenity) {
+        this.homogenity = homogenity;
     }
 
-    public Integer getPixel() {
-        return pixel;
+    public Double getEntropy() {
+        return entropy;
     }
 
-    public void setPixel(Integer pixel) {
-        this.pixel = pixel;
+    public void setEntropy(Double entropy) {
+        this.entropy = entropy;
+    }
+
+    public Double getCorelation() {
+        return corelation;
+    }
+
+    public void setCorelation(Double corelation) {
+        this.corelation = corelation;
     }
 
 }
-
-

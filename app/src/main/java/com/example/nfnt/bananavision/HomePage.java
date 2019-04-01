@@ -1,26 +1,24 @@
 package com.example.nfnt.bananavision;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.nfnt.bananavision.sevices.ApiServices;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,7 +28,7 @@ import java.util.Date;
 
 public class HomePage extends AppCompatActivity {
     private static final int CAMERA_PERMISSION=1;
-    private static final int READ_PERMISSION=1;
+    private static final int SELECT_PICTURE=2;
     private File file;
     ApiServices apiServices;
     private Uri file_uri;
@@ -46,7 +44,15 @@ public class HomePage extends AppCompatActivity {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPermis();
+                getPermis(1);
+            }
+        });
+        Button fileBtn = (Button) findViewById(R.id.btnFolder);
+        fileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPermis(0);
+
             }
         });
     }
@@ -69,12 +75,12 @@ public class HomePage extends AppCompatActivity {
         }
         return file;
     }
-    private void getPermis(){
+    private void getPermis(int value){
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},CAMERA_PERMISSION);
             Log.d("permision", "Fail");
         }
-        else{
+        else if(value==1){
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (i.resolveActivity(getPackageManager()) != null)
             {
@@ -92,70 +98,66 @@ public class HomePage extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode)
-        {
-            case CAMERA_PERMISSION:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
-                {
-                    getPermis();
-                }
-                else
-                {
-                    Log.e("status", "Fail" );
-                }
+        else{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_PERMISSION && resultCode == RESULT_OK){
-            //bitmap = (Bitmap) data.getExtras().get("data");
-            bitmap = BitmapFactory.decodeFile("/storage/emulated/0"+file_uri.getPath());
-            //imgView_data.setImageBitmap(bitmap);
-            new HomePage.Encode_image().execute();
-            Intent results = new Intent(this,MainActivity.class);
-            Bundle b = new Bundle();
-            b.putString("img","/storage/emulated/0" + file_uri.getPath());
-            b.putString("imgName",image_name);
-            results.putExtras(b);
-            startActivity(results);
-            //txtData.setText(encoded_string);
+        if (resultCode == RESULT_OK)
+        {
+            if (requestCode == CAMERA_PERMISSION){
+                Intent results = new Intent(this,MainActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id","camera");
+                b.putString("img","/storage/emulated/0" + file_uri.getPath());
+                b.putString("imgName",image_name);
+                results.putExtras(b);
+                startActivity(results);
+            }
+            else if(requestCode == SELECT_PICTURE){
+                file_uri=data.getData();
+                Intent results = new Intent(this,MainActivity.class);
+                Bundle b = new Bundle();
+                b.putString("id","folder");
+                b.putString("img",getRealPathFromURI_API19(this,file_uri));
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                image_name = timeStamp+".jpg";
+                b.putString("imgName",image_name);
+                results.putExtras(b);
+                startActivity(results);
+            }
         }
+
     }
 
-    private class Encode_image extends AsyncTask<Void,Void,Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            bitmap = BitmapFactory.decodeFile("/storage/emulated/0" + file_uri.getPath());
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-            byte[] array = stream.toByteArray();
-            encoded_string = Base64.encodeToString(array, 0);
+    public static String getRealPathFromURI_API19(Context context, Uri uri){
+        String filePath = "";
+        String wholeID = DocumentsContract.getDocumentId(uri);
 
-            return null;
-        }
+        // Split at colon, use second item in the array
+        String id = wholeID.split(":")[1];
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-//            ApiData data = new ApiData(image_name, encoded_string);
-//            apiServices = ServiceGenerator.createService(ApiServices.class);
-//            Call<ApiData> call = apiServices.postData(data);
-//            call.enqueue(new Callback<ApiData>() {
-//                @Override
-//                public void onResponse(Call<ApiData> call, Response<ApiData> response) {
-//                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ApiData> call, Throwable t) {
-//                    Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
-//                }
-//            });
+        String[] column = { MediaStore.Images.Media.DATA };
+
+        // where id is equal to
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ id }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
         }
+        cursor.close();
+        return filePath;
     }
+
 }
 

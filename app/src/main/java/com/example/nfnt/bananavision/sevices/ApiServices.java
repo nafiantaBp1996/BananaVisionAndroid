@@ -1,7 +1,7 @@
 package com.example.nfnt.bananavision.sevices;
 
 import com.example.nfnt.bananavision.models.ApiData;
-import com.example.nfnt.bananavision.models.Ekstraksi;
+import com.example.nfnt.bananavision.models.Klasifikasi;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,6 +21,6 @@ public interface ApiServices {
     Call<ApiData> postData(@Body ApiData apiData);
 
     @GET("ekstraksi")
-    Call<Ekstraksi> getEkstract(@Query("image") String path);
+    Call<Klasifikasi> getKlasifikasi(@Query("image") String path, @Query("id") String id);
 
 }

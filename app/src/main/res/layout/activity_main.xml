@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bck">
     <ImageView
-
         android:layout_width="300dp"
         android:layout_height="224dp"
-        android:background="#fff"
+        android:background="@drawable/button_pressed"
         android:id="@+id/imageViewHasil"
         android:layout_marginTop="140dp"
         android:rotation="90"
@@ -26,22 +27,26 @@
         android:layout_below="@+id/imageViewHasil"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
-    <Button
-        android:id="@+id/btnEkstraksi"
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:id="@+id/circularBtn"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
         android:text="Cek Hasil"
         android:textSize="16dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textColor="#ffc000"
-        android:background="@drawable/custom_button"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="40dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        app:spinning_bar_color="#ffd000"
+        android:layout_marginTop="40dp"
+        app:spinning_bar_padding="6dp"
+        app:spinning_bar_width="4dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/textViewHasil"
-        android:layout_centerHorizontal="true" />
-
+        app:initialCornerAngle="20dp"
+        />
 
 
 </RelativeLayout>
