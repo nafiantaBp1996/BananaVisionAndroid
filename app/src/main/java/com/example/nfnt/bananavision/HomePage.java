@@ -1,5 +1,6 @@
 package com.example.nfnt.bananavision;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,7 @@ public class HomePage extends AppCompatActivity {
     private Uri file_uri;
     private String image_name,encoded_string,pathImage;
     Bitmap bitmap;
+    Dialog dialog;
     //ImageView imgView_data;
 
     @Override
@@ -53,6 +56,23 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 getPermis(0);
 
+            }
+        });
+        Button btnInfo = (Button) findViewById(R.id.btnInfo);
+        dialog = new Dialog(HomePage.this);
+        dialog.setContentView(R.layout.info_layout);
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+        Button dismissable = (Button) dialog.findViewById(R.id.dismissButon);
+        dismissable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
             }
         });
     }

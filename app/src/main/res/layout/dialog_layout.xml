@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="BananaVision"
+        android:textSize="30dp"
+        android:textColor="#444444"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="15dp"/>
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:src="@drawable/button_custom_main"
+        android:layout_marginTop="100dp"
+        android:id="@+id/imageViewDialog"
+        android:rotation="90"
+        android:layout_below="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/txtJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detail Ekstraksi Citra"
+        android:textStyle="bold|italic"
+        android:textSize="18dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/imageViewDialog"/>
+    <TextView
+        android:id="@+id/txtDetailDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/txtJudul"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Identifikasi : \nPrediksi :\nHue :\nSaturation : \nIntensity :\nKontras :\nKorelasi :\nHomegenity:\nEntropy:"/>
+</RelativeLayout>

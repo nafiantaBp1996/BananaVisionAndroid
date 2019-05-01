@@ -53,4 +53,30 @@
         android:layout_below="@+id/btnCamerass"
         android:layout_marginStart="70dp" />
 
+    <Button
+        android:id="@+id/btnInfo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Tentang Aplikasi"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        android:background="@drawable/custom_button"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="70dp"
+        android:layout_below="@+id/btnFolder"
+        android:layout_marginStart="70dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="11dp"
+        android:textColor="#444444"
+        android:text="Dibuat Oleh Nafianta Budi P \n di bimbing oleh \n Dr. Eng Cahya Rahmad S.T., M.Kom. Dan Mungki Astiningrum S.T., M.Kom"/>
+
 </RelativeLayout>

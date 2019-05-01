@@ -1,5 +1,6 @@
 package com.example.nfnt.bananavision;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,19 +28,22 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     ApiServices apiServices;
-    TextView txtHasil;
+    TextView txtHasil,txtDetail;
     CircularProgressButton circular;
     Bitmap imageHasil,imgPost;
     ImageView imgViewHasil;
     String encoded_string,path,image_name;
+    Button detailButon;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiServices = ServiceGenerator.createService(ApiServices.class);
         txtHasil = (TextView) findViewById(R.id.textViewHasil);
+        txtDetail = (TextView) findViewById(R.id.textViewDetail);
         imgViewHasil = (ImageView) findViewById(R.id.imageViewHasil);
-
+        /////////////////
         Bundle b = getIntent().getExtras();
         path = b.getCharSequence("img").toString();
         image_name = b.getCharSequence("imgName").toString();
@@ -46,6 +51,24 @@ public class MainActivity extends AppCompatActivity {
         imgViewHasil.setImageBitmap(imageHasil);
         circular = (CircularProgressButton) findViewById(R.id.circularBtn);
         circular.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.custom_button));
+        ///////////////////////dialogdetail
+        dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_layout);
+        //dialog.getWindow().setLayout(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+        /**
+         * Mengeset komponen dari custom dialog
+         */
+        final TextView txtDialog = (TextView) dialog.findViewById(R.id.txtDetailDialog);
+        ImageView imageDialog = (ImageView) dialog.findViewById(R.id.imageViewDialog);
+        imageDialog.setImageBitmap(imageHasil);
+        detailButon = (Button) findViewById(R.id.detailButon);
+        detailButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+        ////////////////endofdialog
         if (b.getCharSequence("id")=="folder")
         {
             imgViewHasil.setRotation(90);
@@ -74,8 +97,38 @@ public class MainActivity extends AppCompatActivity {
                         ekstrax.enqueue(new Callback<Klasifikasi>() {
                             @Override
                             public void onResponse(Call<Klasifikasi> call, Response<Klasifikasi> response) {
-                                txtHasil.setText(response.body().getKeterangan().toString());
+                                String text,kematangan = null,datas;
+                                
+                                datas = response.body().getKeterangan().toString();
+                                if (datas.equals("matang")){
+                                    kematangan = "Matang";
+                                }
+                                else if(datas.equals("setMatang")){
+                                    kematangan = "Setengah Matang";
+                                }
+                                else if(datas.equals("mentah")){
+                                    kematangan = "Mentah";
+                                }
+
+                                int prediksi = Integer.parseInt(response.body().getPrediksi().toString());
+                                if(prediksi<0) {
+                                    text = "Buah Akan Matang dalam "+(prediksi*-1) + " Hari";
+                                }
+                                else if(prediksi==0){
+                                    text = "Buah Matang dalam " + prediksi + " Hari";
+                                }
+                                else{
+                                    text = "Buah telah Matang pada " + prediksi + " Hari yang lalu";
+                                }
+                                txtDetail.setText(text);
+                                txtHasil.setText(kematangan);
                                 circular.revertAnimation();
+                                txtDialog.setText("Identifikasi : "+kematangan+"\nPrediksi :"+text+"\n\nHSI\nHue :"
+                                                +response.body().getHue()+"\nSaturation :"+response.body().getSaturation()
+                                                +"\nIntensity :"+response.body().getIntensity()+"\n\nGLCM\nContras : "+response.body().getContras()
+                                                +"\nEntropy : "+response.body().getEntropy()+"\nHomogenity :"+response.body().getHomogenity()
+                                                +"\nEnergy :"+response.body().getEnergy()
+                                                );
                             }
 
                             @Override

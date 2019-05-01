@@ -5,15 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_bck">
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="224dp"
-        android:background="@drawable/button_pressed"
-        android:id="@+id/imageViewHasil"
-        android:layout_marginTop="140dp"
-        android:rotation="90"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,10 +15,53 @@
         android:fontFamily="sans-serif"
         android:textStyle="bold|italic"
         android:shadowColor="#ffffff"
-        android:id="@+id/textViewHasil"
-        android:layout_below="@+id/imageViewHasil"
+        android:id="@+id/txtTit"
+        android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true" />
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="234dp"
+        android:layout_height="310dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="28dp"
+        android:layout_below="@id/txtTit"
+        android:background="@drawable/button_pressed"
+        android:id="@+id/linearLayoutCompat">
+
+    </android.support.v7.widget.LinearLayoutCompat>
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="224dp"
+        android:src="@drawable/button_custom_main"
+        android:id="@+id/imageViewHasil"
+        android:layout_marginTop="70dp"
+        android:rotation="90"
+        android:layout_below="@id/txtTit"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="26dp"
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"
+        android:shadowColor="#ffffff"
+        android:id="@+id/textViewHasil"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/linearLayoutCompat"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:text=""
+        android:textSize="17dp"
+        android:textAlignment="center"
+        android:id="@+id/textViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textViewHasil"
+        />
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:layout_width="match_parent"
@@ -40,13 +75,37 @@
         android:fontFamily="sans-serif-smallcaps"
         android:textColor="#ffc000"
         app:spinning_bar_color="#ffd000"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         app:spinning_bar_padding="6dp"
         app:spinning_bar_width="4dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewHasil"
         app:initialCornerAngle="20dp"
-        />
+        android:layout_below="@+id/textViewDetail"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/detailButon"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:text="Detail"
+        android:textSize="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffc000"
+        android:layout_below="@+id/circularBtn"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="11dp"
+        android:textColor="#444444"
+        android:text="Dibuat Oleh Nafianta Budi P \n di bimbing oleh \n Dr. Eng Cahya Rahmad S.T., M.Kom. Dan Mungki Astiningrum S.T., M.Kom"/>
+
 
 
 </RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="BananaVision"
+        android:textSize="30dp"
+        android:textColor="#444444"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="35dp"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:src="@drawable/logo2"
+        android:layout_below="@id/title2"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/txtinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:text="Aplikasi ini merupakan aplikasi untuk mengidentifikasi tingkat kematangan Pisang Candi. Aplikasi ini mengidentifikasi pisang menggunakan 2 metode ekstraksi fitur ( Hue Saturation Intensity , Gray Levev Coocurance Matrix ) dan 1 mmetode klasifikasi. yaitu K - Nearest Neighbor. Hasil yang ditampilkan oleh sistem ini adalah tingkat kematangan Pisang dan status hari untuk menuju kematangan pisang. "/>
+    <TextView
+        android:id="@+id/title3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Cara Menggunakan Aplikasi"
+        android:textSize="18dp"
+        android:layout_below="@+id/txtinfo"
+        android:textColor="#666666"
+        android:fontFamily="sans-serif"
+        android:layout_marginLeft="40dp"
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="10dp"/>
+    <TextView
+        android:id="@+id/txttatacara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title3"
+        android:layout_marginLeft="40dp"
+        android:textSize="16dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="1. Pilih Gambar Pisang Candi dari Galeri / Kamera\n2. Klik Button 'Cek Hasil' untuk mendapatkan hasil identifikasi dari sistem.\n3. Hasil Akan tampil pada halaman hasil dengang 3 kategori yaitu Matang, Setengah Matang atau mentah \n4. Klik Button Detail untuk mendapat informasi lebih dari hasil identifikasi\n5. Tekan kembali untuk ke halaman Menu utama"/>
+
+    <TextView
+        android:id="@+id/ttd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/txttatacara"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:textAlignment="center"
+        android:text="Pengembang Dan Penulis \nBanana Vision\n\n\n\n\n\nNafianta Budi P"/>
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/dismissButon"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_custom_main"
+        android:text="Kembali"
+        android:textSize="16dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/ttd"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="35dp"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
+</ScrollView>
